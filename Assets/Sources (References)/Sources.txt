@@ -1,0 +1,23 @@
+B00160681
+I have used a couple of different sources, all of these are from and found in the
+unity asset store. The names of each source are found in my assets folder on the projects tab.
+I altered some to suit my game like the wheel alignment on the "Sports Car" and the shades of colours
+in the Polytope Studio. The car controller script was written by me (Dean Smith B00160681). 
+I also used the cinemachine component to assist with making my camera follow the car.
+I have not used any third party tutorial besides the one uploaded by unity developers
+on how to fully use the cinemachine. The EasyRoads asset is an asset that creates the road
+whichever way i want to implement it into my scene.
+
+For the updates post alpha submission I made many more scripts,
+to help the game run better and to make the game more consistent with playing.
+I did add a progression system so that the game does get increasingly difficult to continue playing.
+I made sure to add a simple song in the background that did not jeopardize the age group it was directed at.
+I did have to search online on some simple things due to me forgetting (eg. how to update the timer.) however,
+I only used videos published by unity devs themselves to ensure that the code i was using could be modified,
+which i did do to fit my needs. I know I did not include some small things like the github link button,
+however i only realised this after i had already finished the project. I believe I've met most criteria for this project,
+and i hope you have enjoyed playing it.
+
+I have not imported any other sources/assets to aid me. I only have the same ones from my alpha.
+I also did do this project by myself as there was no one that i knew who was not in a group already so I hope this was okay.
+I look forward to hearing what you have to say about my project.
