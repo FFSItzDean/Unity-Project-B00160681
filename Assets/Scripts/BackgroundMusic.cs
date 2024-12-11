@@ -1,14 +1,16 @@
 //B00160681 Dean Smith
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class BackgroundMusic : MonoBehaviour
 {
-    private static BackgroundMusic instance;  //singleton instance
+    private static BackgroundMusic instance;  //singleton instance to persist between scenes
     private AudioSource audioSource;
 
     void Awake()
     {
-        //ensure only one music player exists
+        //check if instance exists and handle duplicates
         if (instance == null)
         {
             instance = this;

@@ -6,11 +6,11 @@ public class CarFlipCheck : MonoBehaviour
 {
     private float flipTime = 0f;
     private bool isFlipped = false;
-    private const float FLIP_THRESHOLD = 2f;  //seconds until game over
+    private const float FLIP_THRESHOLD = 2f;  //time in seconds before game over when flipped
     
     void Update()
     {
-        //check if car is upside down
+        //check if car is upside down (y-up vector less than -0.5)
         if (transform.up.y < -0.5f)
         {
             if (!isFlipped)

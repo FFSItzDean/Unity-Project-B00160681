@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+//B00160681 Dean Smith
 using UnityEngine;
 
 public class AntiRollBar : MonoBehaviour
 {
-    public WheelCollider WheelL;
-    public WheelCollider WheelR;
-    public float AntiRoll = 5000.0f;
+    public WheelCollider wheelL; //left wheel collider
+    public WheelCollider wheelR; //right wheel collider
+    public float antiRoll = 5000.0f; //anti roll force
 
-    private Rigidbody car;
+    private Rigidbody rb;
+
     void Start()
     {
-        car = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -20,22 +20,30 @@ public class AntiRollBar : MonoBehaviour
         float travelL = 1.0f;
         float travelR = 1.0f;
 
-        bool groundedL = WheelL.GetGroundHit (out hit);
-        if (groundedL){
-            travelL = (-WheelL.transform.InverseTransformPoint (hit.point).y - WheelL.radius) / WheelL.suspensionDistance;        
-        }
-
-        bool groundedR = WheelR.GetGroundHit (out hit);
-        if (groundedR){
-            travelR = (-WheelR.transform.InverseTransformPoint (hit.point).y - WheelR.radius) / WheelR.suspensionDistance;
-        }
-
-        float antiRollForce = (travelL - travelR) * AntiRoll;
-
+        //get left wheel ground contact
+        bool groundedL = wheelL.GetGroundHit(out hit);
         if (groundedL)
-            car.AddForceAtPosition (WheelL.transform.up * - antiRollForce, WheelL.transform.position);
+        {
+            travelL = (-wheelL.transform.InverseTransformPoint(hit.point).y - wheelL.radius) / wheelL.suspensionDistance;
+        }
+
+        //get right wheel ground contact
+        bool groundedR = wheelR.GetGroundHit(out hit);
+        if (groundedR)
+        {
+            travelR = (-wheelR.transform.InverseTransformPoint(hit.point).y - wheelR.radius) / wheelR.suspensionDistance;
+        }
+
+        //calculate anti roll force
+        float antiRollForce = (travelL - travelR) * antiRoll;
+
+        //apply forces to keep car stable
+        if (groundedL)
+            rb.AddForceAtPosition(wheelL.transform.up * -antiRollForce,
+                wheelL.transform.position);
 
         if (groundedR)
-            car.AddForceAtPosition (WheelR.transform.up * - antiRollForce, WheelR.transform.position);
+            rb.AddForceAtPosition(wheelR.transform.up * antiRollForce,
+                wheelR.transform.position);
     }
 }

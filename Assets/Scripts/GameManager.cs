@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
-        //check instance
+        //ensure only one game manager exists
         if (Instance == null)
         {
             Instance = this;
@@ -26,15 +26,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //reset state
-        gameOverPanel.SetActive(false);
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
         Time.timeScale = 1f;
         isGameOver = false;
     }
 
     private void Update()
     {
-        //restart input
-        if (isGameOver && Input.GetKeyDown(KeyCode.Alpha2))
+        //handle scene reload with key press
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             RestartGame();
         }
@@ -42,9 +45,15 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(string reason)
     {
-        Debug.Log("Game Over Called: " + reason);  //debug
-        gameOverPanel.SetActive(true);
-        gameOverText.text = reason + "\nPress '2' to restart";
+        Debug.Log("Game Over Called: " + reason); //debug game over info
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            if (gameOverText != null)
+            {
+                gameOverText.text = reason + "\nPress '2' to restart";
+            }
+        }
         Time.timeScale = 0f;
         isGameOver = true;
     }
@@ -52,6 +61,11 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //reload current scene and reset game state
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 1)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
